@@ -4,7 +4,7 @@ function renderLicenseBadge(license) {
 
   switch(license) {
     case "none" :
-      return ""
+      return "no licensing"
       break;
 
     case "Apache 2.0 License" :
@@ -30,7 +30,7 @@ function renderLicenseBadge(license) {
 function renderLicenseLink(license) {
   switch(license) {
     case "none" :
-      return ""
+      return "no licensing"
       break;
 
     case "Apache 2.0 License" :
@@ -53,11 +53,12 @@ function renderLicenseLink(license) {
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(license) {
-  return `### Licensing: 
-  ${renderLicenseBadge(license)}  
-  ${renderLicenseLink(license)}`
-}
+// function renderLicenseSection(license) {
+//   return `### License: 
+//   ${renderLicenseBadge(license)}  
+//   ${renderLicenseLink(license)}`
+  
+// }
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(response) {
@@ -68,19 +69,36 @@ function generateMarkdown(response) {
   let usage = response.usage ;
   let username = response.userName ;
 
-  let readMe = `# Title Of App  
-  ${title}
-  
-  #### Created By:
-  ${username}
-  
-  ## Purpose of application  
-  ${purpose}
-  
-  ## How to run application 
-  ${usage}
-  
-  ${renderLicenseSection(license)}`
+  let readMe = `# ${response.title} 
+  ${renderLicenseBadge(response.license)}
+ 
+ ## Description of application  
+ ${response.purpose}
+ ## Table of Contents
+ * [Description](#description-of-application)
+ * [Installation](#installation)
+ * [Usage](#usage)
+ * [License](#license)
+ * [Contributing](#contributing)
+ * [Tests](#tests)
+ * [Questions](#questions)
+ ## Installation
+ ${response.install}
+ ## Usage  
+ ${response.usage}
+ 
+ ## License
+ This projects uses the ${response.license} ${renderLicenseBadge(response.license)}    
+ For more information about this license, visit ${renderLicenseLink(response.license)}
+ 
+ 
+ ## Contributing
+ ${response.contribute}
+ ## Tests
+ ${response.tests}
+ ## Questions
+ For questions, take a look at my GitHub account: ${response.gitUserName}  
+ or email me at: ${response.email}`
 
   return readMe ;
 }
